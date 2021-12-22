@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notey/notepage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,6 +21,13 @@ class _HomePageState extends State<HomePage> {
     'Seventh Semseter',
     'Eighth Semseter',
   ];
+  final Map subject = {
+    'BIT201': 'Principles of Management',
+    'BIT202': 'Operating System',
+    'BIT203': 'Numerical Analysis',
+    'BIT204': 'DataBase Management Systems',
+    'BIT205': 'Data Structure and Algorithms',
+  };
   @override
   Widget build(BuildContext context) {
     final Orientation _orientation = MediaQuery.of(context).orientation;
@@ -58,76 +66,27 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'BIT-201',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  subtitle: Text(
-                    'Principle of Management',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'BIT-202',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  subtitle: Text(
-                    'Numerical Method',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'BIT-203',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  subtitle: Text(
-                    'Database Management System',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'BIT-204',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  subtitle: Text(
-                    'Operating System',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text(
-                    'BIT-205',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  subtitle: Text(
-                    'Data Strucutre And Algorithms',
-                    style: TextStyle(fontFamily: _font),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {},
-                ),
-              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: subject.length,
+                  itemBuilder: (BuildContextcontext, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: SubjectCard(
+                        code: '${subject.values.elementAt(index)}',
+                        name: '${subject.keys.elementAt(index)}',
+                        fun: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotePage(
+                              code: '${subject.keys.elementAt(index)}',
+                              title: '${subject.values.elementAt(index)}',
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
@@ -157,6 +116,36 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SubjectCard extends StatelessWidget {
+  final String _font = 'Nunito Sans';
+  SubjectCard({
+    required this.code,
+    required this.name,
+    required this.fun,
+  });
+  final String code;
+  final String name;
+  final VoidCallback fun;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(
+          code,
+          style: TextStyle(fontFamily: _font),
+        ),
+        subtitle: Text(
+          name,
+          style: TextStyle(fontFamily: _font),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios),
+        onTap: fun,
       ),
     );
   }
