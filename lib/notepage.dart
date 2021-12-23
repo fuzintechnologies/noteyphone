@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -14,10 +14,17 @@ class NotePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          code,
+          title,
           style: TextStyle(fontFamily: _font),
         ),
         backgroundColor: _color,
+        actions: [
+          Center(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(code),
+          ))
+        ],
       ),
       body: Center(
         child: Text('Note'),

@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: subject.length,
                   itemBuilder: (BuildContextcontext, int index) {
